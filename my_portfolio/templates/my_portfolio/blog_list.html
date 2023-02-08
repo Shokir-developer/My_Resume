@@ -1,0 +1,76 @@
+{% extends 'my_portfolio/base.html' %}
+
+{% load static %}
+
+{% block title %} My Blogs {% endblock title %}
+
+{% block content %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>My Blogs</h2>
+          <ol>
+            <li><a href="{% url 'blog:homepage' %}">Home</a></li>
+            <li>blogs</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+            {% if blogs %}
+          <div class="col-lg-8">
+              {% for blog in blogs %}
+                <div class="portfolio-details-slider swiper mb-5">
+                    <div class="swiper-wrapper align-items-center">
+
+                        <div class="card text-center container-fluid">
+                              <div class="card-header">
+                                  {{ blog.category }}
+                              </div>
+                              <div class="card-body">
+                                  <h5 class="card-title"><b>{{ blog.title }}</b></h5>
+                                <p class="card-text">{{ blog.body|safe|slice:'150' }}...</p>
+                                <a href="{% url 'blog:blog-detail' blog.slug %}" class="btn btn-primary">Read this blog</a>
+                              </div>
+                              <div class="card-footer text-muted">
+                                  {{ blog.blog_date |timesince }} ago
+                              </div>
+                        </div>
+
+                    </div>
+                </div>
+              {% endfor %}
+          </div>
+            {% else %}
+                No found books.
+            {% endif %}
+
+          <div class="col-lg-4">
+            <div class="portfolio-description">
+              <h2>Blog loyihalar namunalari</h2>
+              <p>
+                  Bu blog postlar shu sayt egasi tomonidan yaratilgan. Bu postlar sayt egasining shaxsiy fikrlari va
+                  shaxsiy ko'nikmalariga asoslangan.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+ {% endblock content %}
